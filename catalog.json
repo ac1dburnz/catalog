@@ -1,6 +1,41 @@
 {
     "charts": {},
     "test": {},
+    
+    "ac1dsworld": {
+       "rtorrent-rutorrent": {
+            "app_readme": "<p>rTorrent and ruTorrent chart.</p>\n<p>This App is supplied by TrueCharts, for more information visit the manual: <a href=\"https://truecharts.org/charts/incubator/rtorrent-rutorrent\">https://truecharts.org/charts/incubator/rtorrent-rutorrent</a></p>\n<hr />\n<p>TrueCharts can only exist due to the incredible effort of our staff.\nPlease consider making a <a href=\"https://truecharts.org/sponsor\">donation</a> or contributing back to the project any way you can!</p>",
+            "categories": [
+                "torrent"
+            ],
+            "description": "rTorrent and ruTorrent chart.",
+            "healthy": true,
+            "healthy_error": null,
+            "home": "https://truecharts.org/charts/incubator/rtorrent-rutorrent",
+            "location": "/home/runner/work/catalog/catalog/incubator/rtorrent-rutorrent",
+            "latest_version": "0.0.3",
+            "latest_app_version": "latest",
+            "latest_human_version": "latest_0.0.3",
+            "last_update": "2023-08-24 02:42:14",
+            "name": "rtorrent-rutorrent",
+            "recommended": false,
+            "title": "Rtorrent-rutorrent",
+            "maintainers": [
+                {
+                    "email": "info@truecharts.org",
+                    "name": "TrueCharts",
+                    "url": "https://truecharts.org"
+                }
+            ],
+            "tags": [],
+            "screenshots": [],
+            "sources": [
+                "https://github.com/truecharts/charts/tree/master/charts/incubator/rtorrent-rutorrent",
+                "https://truecharts.org/charts/incubator/rtorrent-rutorrent",
+                "https://github.com/crazy-max/docker-rtorrent-rutorrent"
+            ],
+            "icon_url": "https://truecharts.org/img/hotlink-ok/chart-icons/rtorrent-rutorrent.png"
+        },
     "operators": {
         "cert-manager": {
             "app_readme": "<p>Cert-Manager is a kubernetes-aware certificate manager</p>\n<p>This App is supplied by TrueCharts, for more information visit the manual: <a href=\"https://truecharts.org/charts/operators/cert-manager\">https://truecharts.org/charts/operators/cert-manager</a></p>\n<hr />\n<p>TrueCharts can only exist due to the incredible effort of our staff.\nPlease consider making a <a href=\"https://truecharts.org/sponsor\">donation</a> or contributing back to the project any way you can!</p>",
