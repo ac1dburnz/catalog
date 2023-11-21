@@ -1,0 +1,857 @@
+{
+    "4.2.10": {
+        "healthy": true,
+        "supported": true,
+        "healthy_error": null,
+        "location": "/home/runner/work/catalog/catalog/enterprise/clusterissuer/4.2.10",
+        "last_update": "2023-11-21 04:23:07",
+        "required_features": [],
+        "human_version": "latest_4.2.10",
+        "version": "4.2.10",
+        "chart_metadata": {
+            "apiVersion": "v2",
+            "appVersion": "latest",
+            "deprecated": false,
+            "description": "Certificate management for Kubernetes",
+            "home": "https://truecharts.org/charts/enterprise/clusterissuer",
+            "icon": "https://truecharts.org/img/hotlink-ok/chart-icons/clusterissuer.png",
+            "keywords": [
+                "cert-manager",
+                "certificates"
+            ],
+            "dependencies": [
+                {
+                    "name": "common",
+                    "repository": "https://library-charts.truecharts.org",
+                    "version": "14.3.5"
+                }
+            ],
+            "kubeVersion": ">=1.16.0-0",
+            "maintainers": [
+                {
+                    "email": "info@truecharts.org",
+                    "name": "TrueCharts",
+                    "url": "https://truecharts.org"
+                }
+            ],
+            "name": "clusterissuer",
+            "sources": [
+                "https://github.com/truecharts/charts/tree/master/charts/enterprise/clusterissuer",
+                "https://cert-manager.io/"
+            ],
+            "type": "application",
+            "version": "4.2.10",
+            "annotations": {
+                "truecharts.org/category": "core",
+                "truecharts.org/SCALE-support": "true",
+                "truecharts.org/grade": "U"
+            }
+        },
+        "app_metadata": null,
+        "schema": {
+            "groups": [
+                {
+                    "name": "Container Image",
+                    "description": "Image to be used for container"
+                },
+                {
+                    "name": "General Settings",
+                    "description": "General Deployment Settings"
+                },
+                {
+                    "name": "Workload Settings",
+                    "description": "Workload Settings"
+                },
+                {
+                    "name": "App Configuration",
+                    "description": "App Specific Config Options"
+                },
+                {
+                    "name": "Networking and Services",
+                    "description": "Configure Network and Services for Container"
+                },
+                {
+                    "name": "Storage and Persistence",
+                    "description": "Persist and Share Data that is Separate from the Container"
+                },
+                {
+                    "name": "Ingress",
+                    "description": "Ingress Configuration"
+                },
+                {
+                    "name": "Security and Permissions",
+                    "description": "Configure Security Context and Permissions"
+                },
+                {
+                    "name": "Resources and Devices",
+                    "description": "Specify Resources/Devices to be Allocated to Workload"
+                },
+                {
+                    "name": "Middlewares",
+                    "description": "Traefik Middlewares"
+                },
+                {
+                    "name": "Metrics",
+                    "description": "Metrics"
+                },
+                {
+                    "name": "Addons",
+                    "description": "Addon Configuration"
+                },
+                {
+                    "name": "Advanced",
+                    "description": "Advanced Configuration"
+                },
+                {
+                    "name": "Postgresql",
+                    "description": "Postgresql"
+                },
+                {
+                    "name": "Documentation",
+                    "description": "Documentation"
+                }
+            ],
+            "questions": [
+                {
+                    "variable": "global",
+                    "group": "General Settings",
+                    "label": "Global Settings",
+                    "schema": {
+                        "additional_attrs": true,
+                        "type": "dict",
+                        "attrs": [
+                            {
+                                "variable": "stopAll",
+                                "label": "Stop All",
+                                "description": "Stops All Running pods and hibernates cnpg",
+                                "schema": {
+                                    "type": "boolean",
+                                    "default": false
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "variable": "clusterIssuer",
+                    "group": "App Configuration",
+                    "label": "Cluster Certificate Issuer",
+                    "schema": {
+                        "additional_attrs": true,
+                        "type": "dict",
+                        "attrs": [
+                            {
+                                "variable": "ACME",
+                                "label": "ACME Issuer",
+                                "schema": {
+                                    "type": "list",
+                                    "default": [],
+                                    "items": [
+                                        {
+                                            "variable": "ACMEEntry",
+                                            "label": "ACME Issuer Entry",
+                                            "schema": {
+                                                "additional_attrs": true,
+                                                "type": "dict",
+                                                "attrs": [
+                                                    {
+                                                        "variable": "name",
+                                                        "label": "Name",
+                                                        "description": "Name to give the issuer",
+                                                        "schema": {
+                                                            "type": "string",
+                                                            "required": true,
+                                                            "valid_chars": "^[a-z]+(-?[a-z]){0,63}-?[a-z]+$",
+                                                            "default": ""
+                                                        }
+                                                    },
+                                                    {
+                                                        "variable": "type",
+                                                        "label": "Type or DNS-Provider",
+                                                        "description": "DNS Provider",
+                                                        "schema": {
+                                                            "type": "string",
+                                                            "default": "cloudflare",
+                                                            "enum": [
+                                                                {
+                                                                    "value": "cloudflare",
+                                                                    "description": "Cloudflare"
+                                                                },
+                                                                {
+                                                                    "value": "route53",
+                                                                    "description": "Route53"
+                                                                },
+                                                                {
+                                                                    "value": "akamai",
+                                                                    "description": "Akamai"
+                                                                },
+                                                                {
+                                                                    "value": "digitalocean",
+                                                                    "description": "Digitalocean"
+                                                                },
+                                                                {
+                                                                    "value": "rfc2136",
+                                                                    "description": "rfc2136 (Advanced)"
+                                                                },
+                                                                {
+                                                                    "value": "HTTP01",
+                                                                    "description": "HTTP01 (Experimental)"
+                                                                },
+                                                                {
+                                                                    "value": "acmedns",
+                                                                    "description": "ACME DNS (Advanced)"
+                                                                }
+                                                            ]
+                                                        }
+                                                    },
+                                                    {
+                                                        "variable": "server",
+                                                        "label": "Server",
+                                                        "description": "Server for ACME, for example: letsencrypt",
+                                                        "schema": {
+                                                            "type": "string",
+                                                            "default": "Letsencrypt-Production",
+                                                            "enum": [
+                                                                {
+                                                                    "value": "https://acme-v02.api.letsencrypt.org/directory",
+                                                                    "description": "Letsencrypt-Production"
+                                                                },
+                                                                {
+                                                                    "value": "https://acme-staging-v02.api.letsencrypt.org/directory",
+                                                                    "description": "Letsencrypt-Staging"
+                                                                },
+                                                                {
+                                                                    "value": "https://api.buypass.no/acme-v02/directory",
+                                                                    "description": "BuyPass-Production"
+                                                                },
+                                                                {
+                                                                    "value": "https://api.test4.buypass.no/acme-v02/directory",
+                                                                    "description": "BuyPass-Staging"
+                                                                },
+                                                                {
+                                                                    "value": "custom",
+                                                                    "description": "Custom"
+                                                                }
+                                                            ]
+                                                        }
+                                                    },
+                                                    {
+                                                        "variable": "customServer",
+                                                        "label": "Custom ACME Server (Advanced)",
+                                                        "description": "This can be used to enter your own custom ACME server",
+                                                        "schema": {
+                                                            "type": "string",
+                                                            "show_if": [
+                                                                [
+                                                                    "server",
+                                                                    "=",
+                                                                    "custom"
+                                                                ]
+                                                            ],
+                                                            "default": "https://acme-staging-v02.api.letsencrypt.org/directory"
+                                                        }
+                                                    },
+                                                    {
+                                                        "variable": "email",
+                                                        "label": "Email",
+                                                        "description": "Email adress to use for certificate issuing must match your DNS provider email when required",
+                                                        "schema": {
+                                                            "type": "string",
+                                                            "required": true,
+                                                            "default": "something@example.com"
+                                                        }
+                                                    },
+                                                    {
+                                                        "variable": "cfapikey",
+                                                        "label": "CloudFlare API key",
+                                                        "description": "CloudFlare API Key",
+                                                        "schema": {
+                                                            "show_if": [
+                                                                [
+                                                                    "type",
+                                                                    "=",
+                                                                    "cloudflare"
+                                                                ]
+                                                            ],
+                                                            "type": "string",
+                                                            "default": ""
+                                                        }
+                                                    },
+                                                    {
+                                                        "variable": "cfapitoken",
+                                                        "label": "CloudFlare API Token",
+                                                        "description": "CloudFlare API Token",
+                                                        "schema": {
+                                                            "show_if": [
+                                                                [
+                                                                    "type",
+                                                                    "=",
+                                                                    "cloudflare"
+                                                                ]
+                                                            ],
+                                                            "type": "string",
+                                                            "default": ""
+                                                        }
+                                                    },
+                                                    {
+                                                        "variable": "region",
+                                                        "label": "Route53 Region",
+                                                        "description": "Route 53 Region",
+                                                        "schema": {
+                                                            "show_if": [
+                                                                [
+                                                                    "type",
+                                                                    "=",
+                                                                    "route53"
+                                                                ]
+                                                            ],
+                                                            "type": "string",
+                                                            "required": true,
+                                                            "default": "us-west-1"
+                                                        }
+                                                    },
+                                                    {
+                                                        "variable": "accessKeyID",
+                                                        "label": "Route53 accessKeyID",
+                                                        "description": "Route53 accessKeyID",
+                                                        "schema": {
+                                                            "show_if": [
+                                                                [
+                                                                    "type",
+                                                                    "=",
+                                                                    "route53"
+                                                                ]
+                                                            ],
+                                                            "type": "string",
+                                                            "required": true,
+                                                            "default": ""
+                                                        }
+                                                    },
+                                                    {
+                                                        "variable": "route53SecretAccessKey",
+                                                        "label": "Route53 Secret Access Key",
+                                                        "description": "Route53 Secret Access Key",
+                                                        "schema": {
+                                                            "show_if": [
+                                                                [
+                                                                    "type",
+                                                                    "=",
+                                                                    "route53"
+                                                                ]
+                                                            ],
+                                                            "type": "string",
+                                                            "required": true,
+                                                            "default": ""
+                                                        }
+                                                    },
+                                                    {
+                                                        "variable": "role",
+                                                        "label": "Route53 Role (optional)",
+                                                        "description": "Route53 Role",
+                                                        "schema": {
+                                                            "show_if": [
+                                                                [
+                                                                    "type",
+                                                                    "=",
+                                                                    "route53"
+                                                                ]
+                                                            ],
+                                                            "type": "string",
+                                                            "default": ""
+                                                        }
+                                                    },
+                                                    {
+                                                        "variable": "serviceConsumerDomain",
+                                                        "label": "Akamai Service Consumer Domain",
+                                                        "description": "Akamai Service Consumer Domain",
+                                                        "schema": {
+                                                            "show_if": [
+                                                                [
+                                                                    "type",
+                                                                    "=",
+                                                                    "akamai"
+                                                                ]
+                                                            ],
+                                                            "type": "string",
+                                                            "required": true,
+                                                            "default": ""
+                                                        }
+                                                    },
+                                                    {
+                                                        "variable": "akclientToken",
+                                                        "label": "Akamai Client Token",
+                                                        "description": "Client Token",
+                                                        "schema": {
+                                                            "show_if": [
+                                                                [
+                                                                    "type",
+                                                                    "=",
+                                                                    "akamai"
+                                                                ]
+                                                            ],
+                                                            "type": "string",
+                                                            "required": true,
+                                                            "default": ""
+                                                        }
+                                                    },
+                                                    {
+                                                        "variable": "akclientSecret",
+                                                        "label": "Akamai Client Secret",
+                                                        "description": "Akamai Client Secret",
+                                                        "schema": {
+                                                            "show_if": [
+                                                                [
+                                                                    "type",
+                                                                    "=",
+                                                                    "akamai"
+                                                                ]
+                                                            ],
+                                                            "type": "string",
+                                                            "required": true,
+                                                            "default": ""
+                                                        }
+                                                    },
+                                                    {
+                                                        "variable": "akaccessToken",
+                                                        "label": "Akamai Access Token",
+                                                        "description": "Akamai Access Token",
+                                                        "schema": {
+                                                            "show_if": [
+                                                                [
+                                                                    "type",
+                                                                    "=",
+                                                                    "akamai"
+                                                                ]
+                                                            ],
+                                                            "type": "string",
+                                                            "required": true,
+                                                            "default": ""
+                                                        }
+                                                    },
+                                                    {
+                                                        "variable": "doaccessToken",
+                                                        "label": "Digitalocean Access Token",
+                                                        "description": "Digitalocean Access Token",
+                                                        "schema": {
+                                                            "show_if": [
+                                                                [
+                                                                    "type",
+                                                                    "=",
+                                                                    "digitalocean"
+                                                                ]
+                                                            ],
+                                                            "type": "string",
+                                                            "required": true,
+                                                            "default": ""
+                                                        }
+                                                    },
+                                                    {
+                                                        "variable": "nameserver",
+                                                        "label": "rfc2136 Namesever",
+                                                        "description": "rfc2136 Namesever",
+                                                        "schema": {
+                                                            "show_if": [
+                                                                [
+                                                                    "type",
+                                                                    "=",
+                                                                    "rfc2136"
+                                                                ]
+                                                            ],
+                                                            "type": "string",
+                                                            "required": true,
+                                                            "default": ""
+                                                        }
+                                                    },
+                                                    {
+                                                        "variable": "tsigKeyName",
+                                                        "label": "rfc2136 tsig Key Name",
+                                                        "description": "rfc2136 tsig Key Name",
+                                                        "schema": {
+                                                            "show_if": [
+                                                                [
+                                                                    "type",
+                                                                    "=",
+                                                                    "rfc2136"
+                                                                ]
+                                                            ],
+                                                            "type": "string",
+                                                            "required": true,
+                                                            "default": ""
+                                                        }
+                                                    },
+                                                    {
+                                                        "variable": "tsigAlgorithm",
+                                                        "label": "rfc2136 tsig Algorithm",
+                                                        "description": "rfc2136 tsig Algorithm",
+                                                        "schema": {
+                                                            "show_if": [
+                                                                [
+                                                                    "type",
+                                                                    "=",
+                                                                    "rfc2136"
+                                                                ]
+                                                            ],
+                                                            "type": "string",
+                                                            "required": true,
+                                                            "default": ""
+                                                        }
+                                                    },
+                                                    {
+                                                        "variable": "rfctsigSecret",
+                                                        "label": "rfc2136 sig Secret",
+                                                        "description": "rfc2136 sig Secret",
+                                                        "schema": {
+                                                            "show_if": [
+                                                                [
+                                                                    "type",
+                                                                    "=",
+                                                                    "rfc2136"
+                                                                ]
+                                                            ],
+                                                            "type": "string",
+                                                            "required": true,
+                                                            "default": ""
+                                                        }
+                                                    },
+                                                    {
+                                                        "variable": "acmednsHost",
+                                                        "label": "ACME DNS host",
+                                                        "description": "ACME DNS API server address",
+                                                        "schema": {
+                                                            "show_if": [
+                                                                [
+                                                                    "type",
+                                                                    "=",
+                                                                    "acmedns"
+                                                                ]
+                                                            ],
+                                                            "type": "string",
+                                                            "required": true,
+                                                            "default": "https://auth.acme-dns.io"
+                                                        }
+                                                    },
+                                                    {
+                                                        "variable": "acmednsConfig",
+                                                        "label": "ACME DNS config",
+                                                        "description": "ACME DNS per-domain auth configuration",
+                                                        "schema": {
+                                                            "show_if": [
+                                                                [
+                                                                    "type",
+                                                                    "=",
+                                                                    "acmedns"
+                                                                ]
+                                                            ],
+                                                            "type": "list",
+                                                            "default": [],
+                                                            "items": [
+                                                                {
+                                                                    "variable": "acmednsEntry",
+                                                                    "label": "ACME DNS entry",
+                                                                    "schema": {
+                                                                        "type": "dict",
+                                                                        "attrs": [
+                                                                            {
+                                                                                "variable": "domain",
+                                                                                "label": "Domain",
+                                                                                "schema": {
+                                                                                    "type": "string",
+                                                                                    "required": true
+                                                                                }
+                                                                            },
+                                                                            {
+                                                                                "variable": "username",
+                                                                                "label": "Username",
+                                                                                "schema": {
+                                                                                    "type": "string",
+                                                                                    "required": true
+                                                                                }
+                                                                            },
+                                                                            {
+                                                                                "variable": "password",
+                                                                                "label": "Password",
+                                                                                "schema": {
+                                                                                    "type": "string",
+                                                                                    "required": true
+                                                                                }
+                                                                            },
+                                                                            {
+                                                                                "variable": "fulldomain",
+                                                                                "label": "Full domain",
+                                                                                "schema": {
+                                                                                    "type": "string",
+                                                                                    "required": true
+                                                                                }
+                                                                            },
+                                                                            {
+                                                                                "variable": "subdomain",
+                                                                                "label": "Subdomain",
+                                                                                "schema": {
+                                                                                    "type": "string",
+                                                                                    "required": true
+                                                                                }
+                                                                            },
+                                                                            {
+                                                                                "variable": "allowFrom",
+                                                                                "label": "Allow from",
+                                                                                "schema": {
+                                                                                    "type": "list",
+                                                                                    "default": [],
+                                                                                    "items": [
+                                                                                        {
+                                                                                            "variable": "cidr",
+                                                                                            "label": "CIDR",
+                                                                                            "schema": {
+                                                                                                "type": "ipaddr",
+                                                                                                "cidr": true,
+                                                                                                "required": true
+                                                                                            }
+                                                                                        }
+                                                                                    ]
+                                                                                }
+                                                                            }
+                                                                        ]
+                                                                    }
+                                                                }
+                                                            ]
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "variable": "CA",
+                                "label": "Certificate Authority Issuer",
+                                "schema": {
+                                    "type": "list",
+                                    "default": [],
+                                    "items": [
+                                        {
+                                            "variable": "CAEntry",
+                                            "label": "CA Issuer Entry",
+                                            "schema": {
+                                                "additional_attrs": true,
+                                                "type": "dict",
+                                                "attrs": [
+                                                    {
+                                                        "variable": "name",
+                                                        "label": "Name",
+                                                        "description": "Name to give the issuer",
+                                                        "schema": {
+                                                            "type": "string",
+                                                            "required": true,
+                                                            "valid_chars": "^[a-z]+(-?[a-z]){0,63}-?[a-z]+$",
+                                                            "default": ""
+                                                        }
+                                                    },
+                                                    {
+                                                        "variable": "selfSigned",
+                                                        "label": "selfSigned",
+                                                        "description": "Create Self Signed CA cert",
+                                                        "schema": {
+                                                            "type": "boolean",
+                                                            "default": true
+                                                        }
+                                                    },
+                                                    {
+                                                        "variable": "selfSignedCommonName",
+                                                        "label": "selfSigned CommonName",
+                                                        "description": "Common name for selfSigned Certiticate Authority",
+                                                        "schema": {
+                                                            "type": "string",
+                                                            "required": true,
+                                                            "show_if": [
+                                                                [
+                                                                    "selfSigned",
+                                                                    "=",
+                                                                    true
+                                                                ]
+                                                            ],
+                                                            "default": "my-selfsigned-ca"
+                                                        }
+                                                    },
+                                                    {
+                                                        "variable": "crt",
+                                                        "label": "Custom CA cert (experimental)",
+                                                        "description": "certificate for Certiticate Authority",
+                                                        "schema": {
+                                                            "type": "string",
+                                                            "required": true,
+                                                            "max_length": 10240,
+                                                            "show_if": [
+                                                                [
+                                                                    "selfSigned",
+                                                                    "=",
+                                                                    false
+                                                                ]
+                                                            ],
+                                                            "default": ""
+                                                        }
+                                                    },
+                                                    {
+                                                        "variable": "key",
+                                                        "label": "Custom CA key (experimental)",
+                                                        "description": "key Certiticate Authority",
+                                                        "schema": {
+                                                            "type": "string",
+                                                            "required": true,
+                                                            "max_length": 10240,
+                                                            "show_if": [
+                                                                [
+                                                                    "selfSigned",
+                                                                    "=",
+                                                                    false
+                                                                ]
+                                                            ],
+                                                            "default": ""
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "variable": "selfSigned",
+                                "label": "SelfSigned Issuer",
+                                "schema": {
+                                    "additional_attrs": true,
+                                    "type": "dict",
+                                    "attrs": [
+                                        {
+                                            "variable": "enabled",
+                                            "label": "enabled",
+                                            "description": "Enable self-signed issuer",
+                                            "schema": {
+                                                "type": "boolean",
+                                                "default": true
+                                            }
+                                        },
+                                        {
+                                            "variable": "name",
+                                            "label": "Name",
+                                            "description": "Name to give the issuer",
+                                            "schema": {
+                                                "type": "string",
+                                                "required": true,
+                                                "valid_chars": "^[a-z]+(-?[a-z]){0,63}-?[a-z]+$",
+                                                "default": "selfsigned"
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "variable": "clusterCertificates",
+                    "group": "App Configuration",
+                    "label": "Cluster Wide Certificates (Advanced)",
+                    "description": "Creates certificates for use within the entire cluster. Can be used to create wildcard certificates.",
+                    "schema": {
+                        "additional_attrs": true,
+                        "type": "dict",
+                        "attrs": [
+                            {
+                                "variable": "certificates",
+                                "label": "Cluster Certificates",
+                                "schema": {
+                                    "type": "list",
+                                    "default": [],
+                                    "items": [
+                                        {
+                                            "variable": "CertEntry",
+                                            "label": "Certificate Entry",
+                                            "schema": {
+                                                "additional_attrs": true,
+                                                "type": "dict",
+                                                "attrs": [
+                                                    {
+                                                        "variable": "enabled",
+                                                        "label": "Enabled",
+                                                        "schema": {
+                                                            "type": "boolean",
+                                                            "default": true
+                                                        }
+                                                    },
+                                                    {
+                                                        "variable": "name",
+                                                        "label": "Certificate Name",
+                                                        "schema": {
+                                                            "type": "string",
+                                                            "required": true,
+                                                            "default": ""
+                                                        }
+                                                    },
+                                                    {
+                                                        "variable": "certificateIssuer",
+                                                        "label": "Cert-Manager clusterIssuer",
+                                                        "description": "One of the Cert-Manager clusterIssuers defined above",
+                                                        "schema": {
+                                                            "type": "string",
+                                                            "required": true,
+                                                            "valid_chars": "^[a-z]+(-?[a-z]){0,63}-?[a-z]+$",
+                                                            "default": "selfsigned"
+                                                        }
+                                                    },
+                                                    {
+                                                        "variable": "hosts",
+                                                        "label": "Certificate Hosts",
+                                                        "description": "NOTE: Creation of wildcard certificates with an ACME issuer requires a DNSO1 solver to be set up.",
+                                                        "schema": {
+                                                            "type": "list",
+                                                            "default": [],
+                                                            "items": [
+                                                                {
+                                                                    "variable": "host",
+                                                                    "label": "Host",
+                                                                    "schema": {
+                                                                        "type": "string",
+                                                                        "default": "",
+                                                                        "required": true
+                                                                    }
+                                                                }
+                                                            ]
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "variable": "customMetrics",
+                    "group": "Metrics",
+                    "label": "Prometheus Metrics",
+                    "schema": {
+                        "additional_attrs": true,
+                        "type": "dict",
+                        "attrs": [
+                            {
+                                "variable": "enabled",
+                                "label": "Enabled",
+                                "description": "Enable Prometheus Metrics",
+                                "schema": {
+                                    "type": "boolean",
+                                    "default": true
+                                }
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        "app_readme": "<p>Certificate management for Kubernetes</p>\n<p>This App is supplied by TrueCharts, for more information visit the manual: <a href=\"https://truecharts.org/charts/enterprise/clusterissuer\">https://truecharts.org/charts/enterprise/clusterissuer</a></p>\n<hr />\n<p>TrueCharts can only exist due to the incredible effort of our staff.\nPlease consider making a <a href=\"https://truecharts.org/sponsor\">donation</a> or contributing back to the project any way you can!</p>",
+        "detailed_readme": "<h1>README</h1>\n<h2>General Info</h2>\n<p>TrueCharts can be installed as both <em>normal</em> Helm Charts or as Apps on TrueNAS SCALE.\nHowever only installations using the TrueNAS SCALE Apps system are supported.</p>\n<p>For more information about this App, please check the docs on the TrueCharts <a href=\"https://truecharts.org/charts/enterprise/\">website</a></p>\n<p><strong>This chart is not maintained by the upstream project and any issues with the chart should be raised <a href=\"https://github.com/truecharts/charts/issues/new/choose\">here</a></strong></p>\n<h2>Support</h2>\n<ul>\n<li>Please check our <a href=\"https://truecharts.org/manual/SCALE/guides/scale-intro\">quick-start guides for TrueNAS SCALE</a>.</li>\n<li>See the <a href=\"https://truecharts.org\">Website</a></li>\n<li>Check our <a href=\"https://discord.gg/tVsPTHWTtr\">Discord</a></li>\n<li>Open a <a href=\"https://github.com/truecharts/charts/issues/new/choose\">issue</a></li>\n</ul>\n<hr />\n<h2>Sponsor TrueCharts</h2>\n<p>TrueCharts can only exist due to the incredible effort of our staff.\nPlease consider making a <a href=\"https://truecharts.org/sponsor\">donation</a> or contributing back to the project any way you can!</p>\n<p><em>All Rights Reserved - The TrueCharts Project</em></p>",
+        "changelog": "<p><strong>Important:</strong>\n<em>for the complete changelog, please refer to the website</em></p>\n<h2><a href=\"https://github.com/truecharts/charts/compare/clusterissuer-4.2.9...clusterissuer-4.2.10\">clusterissuer-4.2.10</a> (2023-11-17)</h2>\n<h2><a href=\"https://github.com/truecharts/charts/compare/clusterissuer-4.2.8...clusterissuer-4.2.9\">clusterissuer-4.2.9</a> (2023-11-08)</h2>\n<h2><a href=\"https://github.com/truecharts/charts/compare/clusterissuer-4.2.7...clusterissuer-4.2.8\">clusterissuer-4.2.8</a> (2023-11-08)</h2>\n<h2><a href=\"https://github.com/truecharts/charts/compare/clusterissuer-4.2.6...clusterissuer-4.2.7\">clusterissuer-4.2.7</a> (2023-11-08)</h2>\n<h3>Chore</h3>\n<ul>\n<li>update helm general non-major (<a href=\"https://github.com/truecharts/charts/issues/14454\">#14454</a>)</li>\n</ul>\n<h2><a href=\"https://github.com/truecharts/charts/compare/clusterissuer-4.2.5...clusterissuer-4.2.6\">clusterissuer-4.2.6</a> (2023-11-05)</h2>\n<h3>Feat</h3>\n<ul>\n<li>Add cluster certificate docs and replace experimental label with advanced (<a href=\"https://github.com/truecharts/charts/issues/14372\">#14372</a>)</li>\n</ul>\n<h2><a href=\"https://github.com/truecharts/charts/compare/clusterissuer-4.2.4...clusterissuer-4.2.5\">clusterissuer-4.2.5</a> (2023-11-05)</h2>\n<h3>Chore</h3>\n<ul>\n<li>update helm general non-major (<a href=\"https://github.com/truecharts/charts/issues/14365\">#14365</a>)</li>\n</ul>\n<h2><a href=\"https://github.com/truecharts/charts/compare/clusterissuer-4.2.3...clusterissuer-4.2.4\">clusterissuer-4.2.4</a> (2023-11-05)</h2>\n<h3>Docs</h3>\n<ul>\n<li>nameserver warning (<a href=\"https://github.com/truecharts/charts/issues/14348\">#14348</a>)</li>\n</ul>\n<p>### Fix</p>\n<ul>\n<li>Fix http01 resource creation (<a href=\"https://github.com/truecharts/charts/issues/14364\">#14364</a>)</li>\n</ul>\n<h2><a href=\"https://github.com/truecharts/charts/compare/clusterissuer-4.2.2...clusterissuer-4.2.3\">clusterissuer-4.2.3</a> (2023-11-03)</h2>\n<h3>Chore</h3>\n<ul>\n<li>update helm general non-major (<a href=\"https://github.com/truecharts/charts/issues/14287\">#14287</a>)</li>\n</ul>\n<h2><a href=\"https://github.com/truecharts/charts/compare/clusterissuer-4.2.1...clusterissuer-4.2.2\">clusterissuer-4.2.2</a> (2023-10-30)</h2>\n<h3>Fix</h3>\n<ul>\n<li>Fix cluster certificate questions (<a href=\"https://github.com/truecharts/charts/issues/14141\">#14141</a>)</li>\n</ul>\n<h2><a href=\"https://github.com/truecharts/charts/compare/clusterissuer-4.2.0...clusterissuer-4.2.1\">clusterissuer-4.2.1</a> (2023-10-29)</h2>\n<h3>Chore</h3>\n<ul>\n<li>update helm general non-major (<a href=\"https://github.com/truecharts/charts/issues/14094\">#14094</a>)</li>\n</ul>\n<h2><a href=\"https://github.com/truecharts/charts/compare/clusterissuer-4.1.4...clusterissuer-4.2.0\">clusterissuer-4.2.0</a> (2023-10-28)</h2>\n<h3>Chore</h3>\n<ul>\n<li>Fix typo in categories and make them singular (<a href=\"https://github.com/truecharts/charts/issues/13693\">#13693</a>)</li>\n</ul>\n<p>### Feat</p>\n<ul>\n<li>Add ability to create cluster-wide certificates (<a href=\"https://github.com/truecharts/charts/issues/13852\">#13852</a>)</li>\n</ul>"
+    }
+}
